@@ -1,0 +1,22 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - *
+
+jobs:
+  fail:
+    name: Failing job
+    runs-on: ubuntu-latest
+    steps:
+    - name: Failing step
+      run: |
+        echo "Hello, World!";
+        exit 1;
+  success:
+    name: Successful job
+    runs-on: ubuntu-latest
+    steps:
+    - name: Successful step
+      run: echo "Hello, World!"
