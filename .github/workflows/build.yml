@@ -13,4 +13,29 @@ jobs:
           distribution: temurin
           java-version: 21
       - uses: gradle/actions/setup-gradle@v4
+      - name: Add init script
+        run: |
+          cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init.gradle
+          gradle.settingsEvaluated { settings ->
+            settings.dependencyResolutionManagement.repositories { maven { url = 'https://repo.onepiece.software/snapshots' } }
+          }
+          gradle.allprojects {
+            plugins.withId('java') {
+              testing.suites.configureEach {
+                dependencies { runtimeOnly('app.testlens:junit-platform-instrumentation:0.1.0-SNAPSHOT') }
+              }
+            }
+          
+            def remote = providers.exec {
+              commandLine('git', 'config', '--get' , 'remote.origin.url')
+            }.standardOutput.asText.get()
+            def projectId = remote.split(':')[1].replace('.git', '').trim()
+          
+            tasks.withType(Test).configureEach {
+              systemProperty('com.acme.test-central.project-id', projectId)
+              systemProperty('com.acme.test-central.token', 'ab9993fd-f021-4806-9125-633e66357af6')
+              systemProperty('com.acme.test-central.server-address', 'testcentral.onepiece.software:9191')
+            }
+          }
+          EOF
       - run: ./gradlew build
