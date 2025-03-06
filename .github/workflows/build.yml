@@ -37,6 +37,7 @@ jobs:
               systemProperty('com.acme.test-central.project-id', projectId)
               systemProperty('com.acme.test-central.token', 'ab9993fd-f021-4806-9125-633e66357af6')
               systemProperty('com.acme.test-central.server-address', '${{ vars.TESTLENS_SERVER }}')
+              systemProperty('com.acme.test-central.use-plaintext', 'true')
             }
           }
           EOF
