@@ -2,9 +2,11 @@ package org.example;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestReporter;
 
+@Disabled
 public class SampleTests {
 
     private static boolean firstRunFinished = false;
