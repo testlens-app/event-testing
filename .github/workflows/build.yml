@@ -22,10 +22,20 @@ jobs:
         with:
           cache-read-only: false
       - name: Add init script
+        env:
+          GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
         run: |
           cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init.gradle
           gradle.settingsEvaluated { settings ->
-            settings.dependencyResolutionManagement.repositories { maven { url = 'https://repo.onepiece.software/snapshots' } }
+            settings.dependencyResolutionManagement.repositories {
+              maven { 
+                url = 'https://maven.pkg.github.com/testlens-app/testlens'
+                credentials {
+                  username = 'testlens-bot'
+                  password = System.getenv('GITHUB_TOKEN')
+                }
+              }
+            }
           }
           gradle.allprojects {
             plugins.withId('java') {
