@@ -22,8 +22,6 @@ jobs:
         with:
           cache-read-only: false
       - name: Add init script
-        env:
-          GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
         run: |
           cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init.gradle
           gradle.settingsEvaluated { settings ->
@@ -58,6 +56,8 @@ jobs:
           }
           EOF
       - run: ./gradlew build
+        env:
+          GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
       - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4
         if: ${{ always() }}
         with:
