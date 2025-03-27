@@ -4,8 +4,8 @@ plugins { id("java-library") }
 
 testing.suites.named<JvmTestSuite>("test") {
     useJUnitJupiter()
-    targets {
-        testTasks.configureEach {
+    targets.configureEach {
+        testTask {
             testLogging {
                 exceptionFormat = TestExceptionFormat.FULL
             }
