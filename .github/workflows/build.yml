@@ -41,14 +41,8 @@ jobs:
                 dependencies { runtimeOnly('app.testlens:junit-platform-instrumentation:0.1.0-SNAPSHOT') }
               }
             }
-          
-            def remote = providers.exec {
-              commandLine('git', 'config', '--get' , 'remote.origin.url')
-            }.standardOutput.asText.get()
-            def projectId = remote.split(':')[1].replace('.git', '').trim()
-          
             tasks.withType(Test).configureEach {
-              systemProperty('com.acme.test-central.project-id', projectId)
+              systemProperty('com.acme.test-central.project-id', '${{ github.repository }}')
               systemProperty('com.acme.test-central.token', 'ab9993fd-f021-4806-9125-633e66357af6')
               systemProperty('com.acme.test-central.server-address', '${{ vars.TESTLENS_SERVER }}')
               systemProperty('com.acme.test-central.use-plaintext', 'true')
