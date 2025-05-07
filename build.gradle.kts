@@ -7,6 +7,7 @@ testing.suites.named<JvmTestSuite>("test") {
     targets.configureEach {
         testTask {
             testLogging {
+                minGranularity = 0
                 exceptionFormat = TestExceptionFormat.FULL
             }
         }
