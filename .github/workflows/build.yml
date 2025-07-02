@@ -10,7 +10,6 @@ jobs:
       tests: Sample1Tests
     secrets: inherit
   job2:
-    needs: job1 # see https://github.com/testlens-app/testlens/issues/198
     name: Job 2
     uses: ./.github/workflows/run-gradle.yml
     with:
