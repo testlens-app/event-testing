@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestReporter;
 
-abstract class SampleTests {
+@Disabled
+public class SampleTests {
 
     private static boolean firstRunFinished = false;
 
