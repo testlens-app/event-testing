@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   job1:
-    name: Job 1
+    name: Job
     uses: ./.github/workflows/run-gradle.yml
     with:
       tests: Sample1Tests
@@ -12,7 +12,7 @@ jobs:
   job2:
     needs: job1 # see https://github.com/testlens-app/testlens/issues/198
     if: always()
-    name: Job 2
+    name: Job
     uses: ./.github/workflows/run-gradle.yml
     with:
       tests: Sample2Tests
