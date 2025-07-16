@@ -42,6 +42,11 @@ jobs:
             }
           }
           EOF
-      - run: ./gradlew test --tests ${{inputs.tests}}
+      - run: ./gradlew build -x test
+        if: github.event_name == 'push'
+        env:
+          GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
+      - run: ./gradlew test --tests ${{inputs.tests}} build
+        if: github.event_name != 'push'
         env:
           GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
