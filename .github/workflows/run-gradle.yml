@@ -37,7 +37,7 @@ jobs:
             }
             tasks.withType(Test).configureEach {
               systemProperty('app.testlens.project-id', '${{ github.repository }}')
-              systemProperty('app.testlens.token', 'ab9993fd-f021-4806-9125-633e66357af6')
+              systemProperty('app.testlens.token', '${{ secrets.TESTLENS_TOKEN }}')
               systemProperty('app.testlens.server-address', '${{ vars.TESTLENS_SERVER }}')
               systemProperty('app.testlens.use-plaintext', '${{ vars.GRPC_PLAINTEXT }}')
             }
