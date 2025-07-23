@@ -18,7 +18,6 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: false
-          cache-disabled: true
       - name: Add init script
         run: |
           cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init.gradle
