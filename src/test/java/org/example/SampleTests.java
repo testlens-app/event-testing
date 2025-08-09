@@ -41,4 +41,10 @@ abstract class SampleTests {
         System.out.println("it fails");
         fail();
     }
+
+    @Test
+    void test6_failing() {
+        System.out.println("it fails");
+        fail();
+    }
 }
