@@ -18,14 +18,25 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: false
-      - uses: testlens-app/setup-testlens@main
-        with:
-          token: ${{ secrets.TESTLENS_TOKEN }}
       - name: Add init script
         run: |
-          cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init-end2end-testing.gradle
+          cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init.gradle
+          gradle.settingsEvaluated { settings ->
+            settings.dependencyResolutionManagement.repositories {
+              maven { 
+                url = 'https://central.sonatype.com/repository/maven-snapshots'
+              }
+            }
+          }
           gradle.allprojects {
+            plugins.withId('java') {
+              testing.suites.configureEach {
+                dependencies { runtimeOnly('app.testlens:junit-platform-instrumentation:0.1.0-SNAPSHOT') }
+              }
+            }
             tasks.withType(Test).configureEach {
+              systemProperty('app.testlens.project-id', '${{ github.repository }}')
+              systemProperty('app.testlens.token', '${{ secrets.TESTLENS_TOKEN }}')
               systemProperty('app.testlens.server-address', '${{ vars.TESTLENS_SERVER }}')
               systemProperty('app.testlens.use-plaintext', '${{ vars.GRPC_PLAINTEXT }}')
             }
