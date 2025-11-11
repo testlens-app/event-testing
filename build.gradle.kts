@@ -20,10 +20,6 @@ testing.suites.named<JvmTestSuite>("test") {
                     .map { it.toInt() }
                     .orElse(0)
             }
-            ignoreFailures = providers.gradleProperty("ignoreFailures")
-                .map { it.toBoolean() }
-                .orElse(false)
-                .get()
         }
     }
 }
