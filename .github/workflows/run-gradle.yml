@@ -49,7 +49,7 @@ jobs:
         if: github.event_name == 'push'
         env:
           GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
-      - run: ./gradlew test --tests ${{inputs.tests}} build
+      - run: ./gradlew test --tests ${{inputs.tests}} build -PmaxRetries=${{ vars.MAX_RETRIES || 0 }}
         if: github.event_name != 'push'
         env:
           GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
