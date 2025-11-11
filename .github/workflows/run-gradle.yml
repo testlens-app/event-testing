@@ -20,8 +20,6 @@ jobs:
           cache-read-only: false
       # Use setup-testlens action once it is public
       # - uses: testlens-app/setup-testlens@main
-      #   with:
-      #     token: ${{ secrets.TESTLENS_TOKEN }}
       - name: Add init script
         run: |
           cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init.gradle
@@ -41,7 +39,6 @@ jobs:
             tasks.withType(Test).configureEach {
               systemProperty('app.testlens.project-id', '${{ github.repository }}')
               systemProperty('app.testlens.work-unit-path', path)
-              systemProperty('app.testlens.token', '${{ secrets.TESTLENS_TOKEN }}')
               systemProperty('app.testlens.github-token', '${{ secrets.GITHUB_TOKEN }}')
               systemProperty('app.testlens.server-address', '${{ vars.TESTLENS_SERVER }}')
               systemProperty('app.testlens.use-plaintext', '${{ vars.GRPC_PLAINTEXT }}')
