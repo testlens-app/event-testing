@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestReporter;
@@ -62,6 +63,12 @@ abstract class SampleTests {
     void test5_failing() {
         System.out.println("it fails");
         maybeFail();
+    }
+
+    @Test
+    @Disabled("for testing purposes")
+    void test6_skipped() {
+        // never executed
     }
 
     private static void maybeFail() {
