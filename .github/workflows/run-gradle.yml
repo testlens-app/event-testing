@@ -18,28 +18,14 @@ jobs:
       - uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
         with:
           cache-read-only: false
-      # Use setup-testlens action once it is public
-      # - uses: testlens-app/setup-testlens@main
+      - uses: testlens-app/setup-testlens@v1.0.0
+        with:
+          instrumentation-version: ${{ vars.INSTRUMENTATION_VERSION }}
       - name: Add init script
         run: |
-          cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init.gradle
-          gradle.settingsEvaluated { settings ->
-            settings.dependencyResolutionManagement.repositories {
-              maven { 
-                url = 'https://central.sonatype.com/repository/maven-snapshots'
-              }
-            }
-          }
+          cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init-end2end-testing.gradle
           gradle.allprojects {
-            plugins.withId('java') {
-              testing.suites.configureEach {
-                dependencies { runtimeOnly('app.testlens:junit-platform-instrumentation:0.1.0-SNAPSHOT') }
-              }
-            }
             tasks.withType(Test).configureEach {
-              systemProperty('app.testlens.project-id', '${{ github.repository }}')
-              systemProperty('app.testlens.work-unit-path', path)
-              systemProperty('app.testlens.github-token', '${{ secrets.GITHUB_TOKEN }}')
               systemProperty('app.testlens.server-address', '${{ vars.TESTLENS_SERVER }}')
               systemProperty('app.testlens.use-plaintext', '${{ vars.GRPC_PLAINTEXT }}')
             }
