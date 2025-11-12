@@ -1,6 +1,10 @@
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
-        maven("local-repo")
+        maven("local-repo") {
+            metadataSources {
+                artifact()
+            }
+        }
     }
 }
