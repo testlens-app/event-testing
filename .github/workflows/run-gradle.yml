@@ -46,10 +46,10 @@ jobs:
           }
           EOF
       - run: ./gradlew build -x test
-        if: github.event_name == 'push' || !startsWith(github.ref, 'refs/heads/testing/')
+        if: github.event_name == 'push' || !startsWith(github.head_ref, 'testing/')
         env:
           GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
       - run: ./gradlew test --tests ${{inputs.tests}} build -PmaxRetries=${{ vars.MAX_RETRIES || 0 }}
-        if: github.event_name != 'push' && startsWith(github.ref, 'refs/heads/testing/')
+        if: github.event_name != 'push' && startsWith(github.head_ref, 'testing/')
         env:
           GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
