@@ -20,7 +20,7 @@ jobs:
           cache-read-only: false
       - uses: testlens-app/setup-testlens@0bfd56551a5fc3b207eea8636f22cdeef374ecac # v1.0.0
         with:
-          instrumentation-version: ${{ vars.INSTRUMENTATION_VERSION }}
+          instrumentation-version: latest # uploaded to local repo by end2end test
       - name: Add init script
         run: |
           cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init-end2end-testing.gradle
