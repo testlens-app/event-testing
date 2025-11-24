@@ -18,9 +18,10 @@ jobs:
       - uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
         with:
           cache-read-only: false
-      - uses: testlens-app/setup-testlens@ab61ffb1bf434d2ac9df9cbbb20375c8467b9324 # v1.3.0
+      - uses: testlens-app/setup-testlens@36b91ed769547bdd013321b54fed067bd0c3fc65 # main
         with:
           instrumentation-version: latest # uploaded to local repo by end2end test
+          write-log-files: true
       - name: Add init script
         run: |
           cat << 'EOF' > $GRADLE_USER_HOME/init.d/testlens-init-end2end-testing.gradle
@@ -39,3 +40,8 @@ jobs:
         if: github.event_name != 'push' && startsWith(github.head_ref, 'testing/')
         env:
           GITHUB_TOKEN: ${{ secrets.TESTLENS_BOT_GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        if: ${{ always() }}
+        with:
+          name: "TestLens logs (${{ job.check_run_id }})"
+          path: "**/testlens-logs/**"
