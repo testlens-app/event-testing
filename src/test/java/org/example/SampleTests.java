@@ -1,6 +1,6 @@
 package org.example;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -72,8 +72,6 @@ abstract class SampleTests {
     }
 
     private static void maybeFail() {
-        if (markerFileDoesNotExist) {
-            fail();
-        }
+        assertFalse(markerFileDoesNotExist);
     }
 }
