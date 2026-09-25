@@ -18,7 +18,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
         with:
           cache-read-only: false
-      - uses: testlens-app/setup-testlens@1225f1487ea7fc0c63187d6fc537e5497143f56c # main
+      - uses: testlens-app/setup-testlens@270d2a0cf157132b64948f6b57fc5594f6ac4b5d # main
         with:
           instrumentation-version: latest # uploaded to local repo by end2end test
           write-log-files: true
