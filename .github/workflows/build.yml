@@ -12,12 +12,18 @@ jobs:
   job1:
     name: Job 1
     uses: ./.github/workflows/run-gradle.yml
+    permissions:
+      contents: read
+      id-token: write
     with:
       tests: Sample1Tests
     secrets: inherit
   job2:
     name: Job 2
     uses: ./.github/workflows/run-gradle.yml
+    permissions:
+      contents: read
+      id-token: write
     with:
       tests: Sample2Tests
     secrets: inherit
