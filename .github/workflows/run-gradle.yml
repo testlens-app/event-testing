@@ -21,7 +21,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6.4.0
         with:
           cache-read-only: false
-      - uses: testlens-app/setup-testlens@c65f1dc9d373ce22afed0509de3b60b40ff41c8a # main
+      - uses: testlens-app/setup-testlens@3a7109d67b3abb55fd0c8f5c3e5a77eb2ae36d4e # main
         if: vars.TESTLENS_TOKEN_URL != ''
         with:
           use-oidc: true
